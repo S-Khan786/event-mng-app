@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'https://event-mng-app.onrender.com', // Replace with your backend URL
+  baseURL: 'https://event-mng-app.onrender.com/api', // Replace with your backend URL
 });
 
 // Add a request interceptor to include the JWT token in headers

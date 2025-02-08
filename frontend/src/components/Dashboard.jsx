@@ -27,7 +27,7 @@ const Dashboard = () => {
     fetchEvents();
 
     // Set up WebSocket connection
-    const socket = io("http://localhost:5000"); // Replace with your backend URL
+    const socket = io("https://event-mng-app.onrender.com"); // Replace with your backend URL
 
     // Listen for real-time attendee updates
     socket.on("attendeeUpdate", (data) => {

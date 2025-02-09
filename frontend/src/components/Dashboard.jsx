@@ -4,6 +4,7 @@ import API from "../services/api";
 import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
+import { toast } from "react-toastify";
 
 const Dashboard = () => {
   const [events, setEvents] = useState([]);
@@ -58,6 +59,7 @@ const Dashboard = () => {
   const handleJoinEvent = async (eventId) => {
     try {
       await API.post(`/events/${eventId}/join`);
+      toast.success('Join Successful');
     } catch (err) {
       console.error(err.response?.data?.msg || "Failed to join event");
     }
@@ -66,6 +68,7 @@ const Dashboard = () => {
   const handleLeaveEvent = async (eventId) => {
     try {
       await API.post(`/events/${eventId}/leave`);
+      toast.success('Leave Successful!');
     } catch (err) {
       console.error(err.response?.data?.msg || "Failed to leave event");
     }
@@ -76,6 +79,7 @@ const Dashboard = () => {
       await API.delete(`/events/${eventId}`);
       // Remove the deleted event from the state
       setEvents((prevEvents) => prevEvents.filter((event) => event._id !== eventId));
+      toast.success('Delete event Successful!');
     } catch (err) {
       console.error(err.response?.data?.msg || "Failed to delete event");
     }
@@ -91,9 +95,11 @@ const Dashboard = () => {
     try {
       await API.get("/auth/logout");
       localStorage.removeItem("token");
+      toast.success('Logout Successfully');
       navigate("/login");
     } catch (err) {
       console.error("Logout failed:", err.response?.data?.msg || err.message);
+      toast.error(err.response?.data?.msg || 'Logout failed. Please try again.');
     }
   };
 

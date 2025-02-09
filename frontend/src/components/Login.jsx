@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import API from "../services/api";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "", role: "guest" }); // Add role to formData
@@ -11,9 +12,11 @@ const Login = () => {
     try {
       const res = await API.post("/auth/login", formData);
       localStorage.setItem("token", res.data.token);
+      toast.success('Login successful!');
       navigate("/dashboard");
     } catch (err) {
-      console.error(err.response.data.msg);
+      toast.error(err.response?.data?.msg || 'Login failed. Please try again.');
+      // console.error(err.response.data.msg);
     }
   };
 

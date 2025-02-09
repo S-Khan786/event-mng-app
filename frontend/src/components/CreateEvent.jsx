@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import API from '../services/api';
+import { toast } from 'react-toastify';
 
 const CreateEvent = () => {
   const [formData, setFormData] = useState({
@@ -22,6 +23,7 @@ const CreateEvent = () => {
       // Check for required fields before sending the request
       if (!formData.name || !formData.date || !formData.time || !formData.location) {
         setError("All fields are required.");
+        toast.error('All fields are required.');
         return;
       }
 
@@ -30,9 +32,11 @@ const CreateEvent = () => {
 
       // Send the POST request to create the event
       await API.post('/events', formData);
+      toast.success('Event created successfully!');
       navigate('/dashboard');
     } catch (err) {
       setError(err.response?.data?.msg || "Something went wrong. Please try again.");
+      toast.error(err.response?.data?.msg || 'Failed to create event.');
       console.error(err);
     }
   };

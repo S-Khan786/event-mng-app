@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import API from "../services/api";
+import { toast } from "react-toastify";
 
 const UpdateEvent = () => {
   const { id } = useParams(); // Get the event ID from the URL
@@ -21,6 +22,7 @@ const UpdateEvent = () => {
         setEvent(res.data);
       } catch (err) {
         console.error(err.response?.data?.msg || "Failed to fetch event");
+        toast.error('Failed to fetch event details.');
       }
     };
     fetchEvent();
@@ -37,9 +39,11 @@ const UpdateEvent = () => {
     e.preventDefault();
     try {
       await API.put(`/events/${id}`, event);
+      toast.success('Event updated successfully!');
       navigate("/dashboard"); // Redirect to the dashboard after updating
     } catch (err) {
       console.error(err.response?.data?.msg || "Failed to update event");
+      toast.error('Failed to update event.');
     }
   };
 

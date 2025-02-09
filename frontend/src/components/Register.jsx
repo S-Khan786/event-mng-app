@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import API from '../services/api';
+import { toast } from 'react-toastify';
 
 const Register = () => {
   const [formData, setFormData] = useState({ username: '', email: '', password: '', role: 'guest' }); // Add role to formData
@@ -11,9 +12,11 @@ const Register = () => {
     try {
       const res = await API.post('/auth/register', formData);
       localStorage.setItem('token', res.data.token);
+      toast.success('Registration successful! Please log in.');
       navigate('/login');
     } catch (err) {
-      console.error(err);
+      toast.error(err.response?.data?.msg || 'Registration failed. Please try again.');
+      // console.error(err);
     }
   };
 

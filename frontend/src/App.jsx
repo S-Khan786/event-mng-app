@@ -9,7 +9,8 @@ import UpdateEvent from './components/UpdateEvent.jsx';
 import ProtectedRoute from './utils/ProtectedRoute';
 import PublicRoute from './utils/PublicRoute';
 import { Navigate } from 'react-router-dom';
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const socket = io("https://event-mng-app.onrender.com", {
   withCredentials: true, // Ensure credentials are sent with the connection
@@ -51,6 +52,17 @@ function App() {
         {/* Default route (redirect to login if not authenticated) */}
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </Router>
   );
 }

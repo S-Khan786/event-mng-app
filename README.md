@@ -8,6 +8,7 @@
 
 <h1>📌 Event Management App (MERN Stack)</h1>
 <p>An Event Management platform built with the <strong>MERN Stack</strong> that allows users to create, manage, and join events with real-time updates.</p>
+<strong><a href="https://event-mng-app.onrender.com/login">Demo</a></strong>
 
 <hr>
 
